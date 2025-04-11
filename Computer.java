@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import tempclass.customerclass;
 
 public class Computer {
-    public static boolean registerComputer(String MAPC, String RAM, String ROM, String CPU, 
+    public static boolean registerComputer(String RAM, String ROM, String CPU, 
     String VGA, int SOMAY, String TRANGTHAI, String MAKV) {
         String url = "jdbc:oracle:thin:@//localhost:1521/orcl"; // Thay bằng URL CSDL
         String username = "QUANLYTIEMCYCBERGAME";  
