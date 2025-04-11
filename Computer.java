@@ -12,21 +12,20 @@ public class Computer {
         String username = "QUANLYTIEMCYCBERGAME";  
         String password = "Admin123";  
 
-        String sql = "INSERT INTO PC (MAPC, RAM, ROM, CPU, VGA, SOMAY, TRANGTHAI, MAKV) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO PC (RAM, ROM, CPU, VGA, SOMAY, TRANGTHAI, MAKV) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = DriverManager.getConnection(url, username, password);
             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             Class.forName("oracle.jdbc.OracleDriver");
 
-            stmt.setString(1, MAPC);
-            stmt.setString(2, RAM);
-            stmt.setString(3, ROM);
-            stmt.setString(4, CPU);
-            stmt.setString(5, VGA);
-            stmt.setInt(6, SOMAY);
-            stmt.setString(7, TRANGTHAI);
-            stmt.setString(8, MAKV);
+            stmt.setString(1, RAM);
+            stmt.setString(2, ROM);
+            stmt.setString(3, CPU);
+            stmt.setString(4, VGA);
+            stmt.setInt(5, SOMAY);
+            stmt.setString(6, TRANGTHAI);
+            stmt.setString(7, MAKV);
 
             int rowsInserted = stmt.executeUpdate();
             if (rowsInserted > 0) {
