@@ -1,5 +1,4 @@
 package tempclass;
-
 public class customerclass {
     String makh;
     String userid;
