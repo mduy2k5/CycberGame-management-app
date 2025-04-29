@@ -23,67 +23,6 @@ import javax.swing.table.DefaultTableModel;
 import tempclass.AreaClass;
 import tempclass.ComputerClass;
 
-class ButtonRenderer extends JButton implements javax.swing.table.TableCellRenderer {
-    public ButtonRenderer() {
-        setOpaque(true);
-    }
-
-    @Override
-    public java.awt.Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-        setText((value == null) ? "Details" : value.toString());
-        return this;
-    }
-}
-
-class ButtonEditor extends DefaultCellEditor {
-    private final JButton button;
-    private String label;
-    private boolean isPushed;
-    private final DefaultTableModel tableModel;
-
-    public ButtonEditor(JCheckBox checkBox, DefaultTableModel tableModel) {
-        super(checkBox);
-        this.tableModel = tableModel;
-        button = new JButton();
-        button.setOpaque(true);
-        button.addActionListener(e -> fireEditingStopped());
-    }
-
-    @Override
-    public java.awt.Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-        label = (value == null) ? "Details" : value.toString();
-        button.setText(label);
-        isPushed = true;
-
-        // Add action to show details
-        button.addActionListener(e -> {
-            String maPC = tableModel.getValueAt(row, 0).toString();
-            JOptionPane.showMessageDialog(null, "Details for Mã PC: " + maPC);
-        });
-
-        return button;
-    }
-
-    @Override
-    public Object getCellEditorValue() {
-        if (isPushed) {
-            isPushed = false;
-        }
-        return label;
-    }
-
-    @Override
-    public boolean stopCellEditing() {
-        isPushed = false;
-        return super.stopCellEditing();
-    }
-
-    @Override
-    protected void fireEditingStopped() {
-        super.fireEditingStopped();
-    }
-}
-
 public class ComputerFrame {
     public static JPanel createComputerPanel() {
         JPanel panel = new JPanel(new BorderLayout());
@@ -98,9 +37,6 @@ public class ComputerFrame {
             }
         };
 
-        // Add a custom renderer for the "Actions" column
-        computerTable.getColumnModel().getColumn(8).setCellRenderer(new ButtonRenderer());
-        computerTable.getColumnModel().getColumn(8).setCellEditor(new ButtonEditor(new JCheckBox(), tableModel));
 
         JScrollPane scrollPane = new JScrollPane(computerTable);
         panel.add(scrollPane, BorderLayout.CENTER);
