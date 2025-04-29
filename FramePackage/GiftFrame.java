@@ -21,66 +21,6 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import tempclass.GiftClass;
-class ButtonRenderer extends JButton implements TableCellRenderer {
-    public ButtonRenderer() {
-        setOpaque(true);
-    }
-
-    @Override
-    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-        setText((value == null) ? "Details" : value.toString());
-        return this;
-    }
-}
-
-class ButtonEditor extends DefaultCellEditor {
-    private JButton button;
-    private String label;
-    private boolean isPushed;
-    private DefaultTableModel tableModel;
-
-    public ButtonEditor(JCheckBox checkBox, DefaultTableModel tableModel) {
-        super(checkBox);
-        this.tableModel = tableModel;
-        button = new JButton();
-        button.setOpaque(true);
-        button.addActionListener(e -> fireEditingStopped());
-    }
-
-    @Override
-    public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-        label = (value == null) ? "Details" : value.toString();
-        button.setText(label);
-        isPushed = true;
-
-        // Add action to show details
-        button.addActionListener(e -> {
-            String maQT = tableModel.getValueAt(row, 0).toString();
-            JOptionPane.showMessageDialog(null, "Details for Mã QT: " + maQT);
-        });
-
-        return button;
-    }
-
-    @Override
-    public Object getCellEditorValue() {
-        if (isPushed) {
-            isPushed = false;
-        }
-        return label;
-    }
-
-    @Override
-    public boolean stopCellEditing() {
-        isPushed = false;
-        return super.stopCellEditing();
-    }
-
-    @Override
-    protected void fireEditingStopped() {
-        super.fireEditingStopped();
-    }
-}
 
 public class GiftFrame {
     public static JPanel createGiftPanel() {
@@ -96,9 +36,7 @@ public class GiftFrame {
             }
         };
 
-        // Add a custom renderer and editor for the "Actions" column
-        giftTable.getColumnModel().getColumn(3).setCellRenderer(new ButtonRenderer());
-        giftTable.getColumnModel().getColumn(3).setCellEditor(new ButtonEditor(new JCheckBox(), tableModel));
+
 
         JScrollPane scrollPane = new JScrollPane(giftTable);
         panel.add(scrollPane, BorderLayout.CENTER);
